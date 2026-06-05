@@ -8,9 +8,7 @@
 
 #include "app_task.h"
 
-#ifdef CONFIG_AWS_IOT_INTEGRATION
-#include "aws_iot_integration.h"
-#endif
+
 
 #include <app-common/zap-generated/attributes/Accessors.h>
 #include <app-common/zap-generated/ids/Attributes.h>
@@ -38,9 +36,7 @@ void MatterPostAttributeChangeCallback(const chip::app::ConcreteAttributePath &a
 		Nrf::GetBoard().GetLED(Nrf::DeviceLeds::LED2).Set(*value);
 #endif
 
-#ifdef CONFIG_AWS_IOT_INTEGRATION
-		aws_iot_integration_attribute_set(ATTRIBUTE_ID_ONOFF, *value);
-#endif
+
 
 	} else if (clusterId == LevelControl::Id && attributeId == LevelControl::Attributes::CurrentLevel::Id) {
 		ChipLogProgress(Zcl, "Cluster LevelControl: attribute CurrentLevel set to %" PRIu8 "", *value);
@@ -53,9 +49,7 @@ void MatterPostAttributeChangeCallback(const chip::app::ConcreteAttributePath &a
 		}
 #endif
 
-#ifdef CONFIG_AWS_IOT_INTEGRATION
-		aws_iot_integration_attribute_set(ATTRIBUTE_ID_LEVEL_CONTROL, *value);
-#endif
+
 	}
 }
 

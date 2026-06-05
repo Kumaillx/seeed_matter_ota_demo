@@ -22,8 +22,56 @@ config CHIP_WIFI
 	default y if BOARD_NRF7002DK_NRF5340_CPUAPP || SHIELD_NRF7002EB2
 	select DEPRECATED if SOC_SERIES_NRF53
 
+config NFC
+	bool "NFC support"
+	default n
+
+config CHIP_NFC_COMMISSIONING
+	bool "Matter NFC commissioning"
+	default n
+
+config MATTER_NFC_COMMISSIONING
+	bool "Matter NFC commissioning (renamed)"
+	default n
+
+config NFC_T2T_LIB
+	bool "NFC Type 2 Tag library"
+	default n
+
+config NFCT_PINS_AS_GPIOS
+	bool "NFC pins as GPIOs"
+	default n
+
+config CHIP_NFC_ONBOARDING_PAYLOAD
+	bool "Chip NFC onboarding payload"
+	default n
+
+config NFC_T2T_NRFXLIB
+	bool "NFC T2T NRFXLIB"
+	default n
+
+config NFC_NDEF
+	bool "NFC NDEF"
+	default n
+
+config NFC_NDEF_MSG
+	bool "NFC NDEF MSG"
+	default n
+
+config NFC_NDEF_RECORD
+	bool "NFC NDEF RECORD"
+	default n
+
+config NFC_NDEF_URI_MSG
+	bool "NFC NDEF URI MSG"
+	default n
+
+config NFC_NDEF_URI_REC
+	bool "NFC NDEF URI REC"
+	default n
+
 source "$(ZEPHYR_CONNECTEDHOMEIP_MODULE_DIR)/config/nrfconnect/chip-module/Kconfig.features"
 source "$(ZEPHYR_CONNECTEDHOMEIP_MODULE_DIR)/config/nrfconnect/chip-module/Kconfig.defaults"
 source "$(ZEPHYR_NRF_MODULE_DIR)/samples/matter/common/src/Kconfig"
 source "Kconfig.zephyr"
-rsource "src/aws_iot_integration/Kconfig"
+

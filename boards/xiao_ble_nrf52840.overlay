@@ -159,3 +159,7 @@
 &usbd {
         status = "okay"; /* Kept active for serial CDC logging */
 };
+
+&nfct {
+        status = "disabled";
+};
