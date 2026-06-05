@@ -40,5 +40,8 @@ target_sources(app PRIVATE
   ${CHIP_ROOT}/src/app/persistence/DeferredAttributePersistenceProvider.cpp
 )
 
-ncs_configure_data_model()
+# FIXED: Explicitly pass target and generated JSON configuration file paths
+ncs_configure_data_model(TARGET matter-data-model CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/zap-generated/apps-configuration.json)
+target_link_libraries(app PRIVATE matter-data-model)
+
 # NORDIC SDK APP END

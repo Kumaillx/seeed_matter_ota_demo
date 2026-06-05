@@ -1,0 +1,161 @@
+/*
+ * Copyright (c) 2024
+ *
+ * SPDX-License-Identifier: LicenseRef-Nordic-5-Clause
+ */
+
+/ {
+        chosen {
+                nordic,pm-ext-flash = &p25q16h;
+                /* Map the system code partition to slot0 for MCUboot */
+                zephyr,code-partition = &slot0_partition;
+        };
+
+        aliases {
+                pwm-led1 = &pwm_led1;
+                sw0 = &button0;
+                sw1 = &button1;
+        };
+
+        pwmleds {
+                compatible = "pwm-leds";
+                pwm_led1: pwm_led_1 {
+                        pwms = <&pwm0 1 PWM_MSEC(20) PWM_POLARITY_INVERTED>;
+                };
+        };
+
+        buttons {
+                compatible = "gpio-keys";
+                button0: button_0 {
+                        gpios = <&gpio0 2 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+                        label = "Push button switch 0 (D0)";
+                };
+                button1: button_1 {
+                        gpios = <&gpio0 3 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+                        label = "Push button switch 1 (D1)";
+                };
+        };
+};
+
+&flash0 {
+        /delete-node/ partitions;
+        partitions {
+                compatible = "fixed-partitions";
+                #address-cells = <1>;
+                #size-cells = <1>;
+
+                boot_partition: partition@0 {
+                        label = "mcuboot";
+                        reg = <0x00000000 0x0000c000>;
+                };
+                slot0_partition: partition@c000 {
+                        label = "image-0";
+                        reg = <0x0000c000 0x000e8000>;
+                };
+                storage_partition: partition@f4000 {
+                        label = "storage";
+                        reg = <0x000f4000 0x0000c000>;
+                };
+        };
+};
+
+&pwm0 {
+        status = "okay";
+        pinctrl-0 = <&pwm0_default_alt>;
+        pinctrl-1 = <&pwm0_sleep_alt>;
+        pinctrl-names = "default", "sleep";
+};
+
+&pinctrl {
+        pwm0_default_alt: pwm0_default_alt {
+                group1 {
+                        psels = <NRF_PSEL(PWM_OUT1, 0, 30)>;
+                        nordic,invert;
+                };
+        };
+
+        pwm0_sleep_alt: pwm0_sleep_alt {
+                group1 {
+                        psels = <NRF_PSEL(PWM_OUT1, 0, 30)>;
+                        low-power-enable;
+                };
+        };
+
+        qspi_default: qspi_default {
+                group1 {
+                        psels = <NRF_PSEL(QSPI_SCK, 0, 21)>,
+                                <NRF_PSEL(QSPI_IO0, 0, 20)>,
+                                <NRF_PSEL(QSPI_IO1, 0, 24)>,
+                                <NRF_PSEL(QSPI_IO2, 0, 22)>,
+                                <NRF_PSEL(QSPI_IO3, 0, 23)>,
+                                <NRF_PSEL(QSPI_CSN, 0, 25)>;
+                };
+        };
+
+        qspi_sleep: qspi_sleep {
+                group1 {
+                        psels = <NRF_PSEL(QSPI_SCK, 0, 21)>,
+                                <NRF_PSEL(QSPI_IO0, 0, 20)>,
+                                <NRF_PSEL(QSPI_IO1, 0, 24)>,
+                                <NRF_PSEL(QSPI_IO2, 0, 22)>,
+                                <NRF_PSEL(QSPI_IO3, 0, 23)>,
+                                <NRF_PSEL(QSPI_CSN, 0, 25)>;
+                        low-power-enable;
+                };
+        };
+};
+
+&qspi {
+        status = "okay";
+        pinctrl-0 = <&qspi_default>;
+        pinctrl-1 = <&qspi_sleep>;
+        pinctrl-names = "default", "sleep";
+
+        p25q16h: p25q16h@0 {
+                compatible = "nordic,qspi-nor";
+                reg = <0>;
+                sck-frequency = <32000000>;
+                jedec-id = [85 60 15];
+                size = <2097152>; /* 2MB in bytes */
+                has-dpd;
+                t-enter-dpd = <3000>;
+                t-exit-dpd = <8000>;
+                quad-enable-requirements = "S2B1v1";
+
+                partitions {
+                        compatible = "fixed-partitions";
+                        #address-cells = <1>;
+                        #size-cells = <1>;
+
+                        slot1_partition: partition@0 {
+                                label = "image-1";
+                                reg = <0x00000000 0x000e8000>;
+                        };
+                };
+        };
+};
+
+/* Disable unused peripherals to reduce power consumption */
+&adc {
+        status = "disabled";
+};
+
+&uart1 {
+        status = "disabled";
+};
+
+&i2c0 {
+        status = "disabled";
+};
+
+&spi1 {
+        status = "disabled";
+};
+
+&spi3 {
+        status = "disabled";
+};
+
+&usbd {
+        status = "okay"; /* Kept active for serial CDC logging */
+};

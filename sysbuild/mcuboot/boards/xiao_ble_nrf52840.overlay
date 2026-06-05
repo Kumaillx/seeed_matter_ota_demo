@@ -1,0 +1,33 @@
+/ {
+	chosen {
+		zephyr,code-partition = &slot0_partition;
+	};
+};
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		/* Define the exact physical slot0 anchor MCUBoot is demanding */
+		slot0_partition: partition@7200 {
+			label = "image-0";
+			reg = <0x7200 0xefe00>;
+		};
+	};
+};
+
+&p25q16h {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		/* Define the secondary slot anchor on your external flash */
+		slot1_partition: partition@0 {
+			label = "image-1";
+			reg = <0x0 0xf0000>;
+		};
+	};
+};
