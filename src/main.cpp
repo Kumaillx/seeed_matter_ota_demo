@@ -8,10 +8,15 @@
 
 #include <zephyr/logging/log.h>
 
+#include "user_led.h"
+
 LOG_MODULE_REGISTER(app, CONFIG_CHIP_APP_LOG_LEVEL);
 
 int main()
 {
+	// initialize user led
+	user_led_init();
+
 	CHIP_ERROR err = AppTask::Instance().StartApp();
 
 	LOG_ERR("Exited with code %" CHIP_ERROR_FORMAT, err.Format());

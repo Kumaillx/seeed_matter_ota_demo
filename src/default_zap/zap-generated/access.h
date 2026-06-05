@@ -29,9 +29,14 @@
 
 // Parallel array data (*cluster*, attribute, privilege) for read attribute
 #define GENERATED_ACCESS_READ_ATTRIBUTE__CLUSTER { \
+    /* Cluster: On/Off, Attribute: StartUpOnOff, Privilege: view */ \
+    /* Cluster: Level Control, Attribute: StartUpCurrentLevel, Privilege: view */ \
     0x0000001F, /* Cluster: Access Control, Attribute: ACL, Privilege: administer */ \
     0x0000001F, /* Cluster: Access Control, Attribute: Extension, Privilege: administer */ \
+    /* Cluster: Basic Information, Attribute: NodeLabel, Privilege: view */ \
+    /* Cluster: Basic Information, Attribute: Location, Privilege: view */ \
     /* Cluster: OTA Software Update Requestor, Attribute: DefaultOTAProviders, Privilege: view */ \
+    /* Cluster: General Commissioning, Attribute: Breadcrumb, Privilege: view */ \
     0x00000031, /* Cluster: Network Commissioning, Attribute: MaxNetworks, Privilege: administer */ \
     0x00000031, /* Cluster: Network Commissioning, Attribute: Networks, Privilege: administer */ \
     /* Cluster: Network Commissioning, Attribute: InterfaceEnabled, Privilege: view */ \
@@ -44,9 +49,14 @@
 
 // Parallel array data (cluster, *attribute*, privilege) for read attribute
 #define GENERATED_ACCESS_READ_ATTRIBUTE__ATTRIBUTE { \
+    /* Cluster: On/Off, Attribute: StartUpOnOff, Privilege: view */ \
+    /* Cluster: Level Control, Attribute: StartUpCurrentLevel, Privilege: view */ \
     0x00000000, /* Cluster: Access Control, Attribute: ACL, Privilege: administer */ \
     0x00000001, /* Cluster: Access Control, Attribute: Extension, Privilege: administer */ \
+    /* Cluster: Basic Information, Attribute: NodeLabel, Privilege: view */ \
+    /* Cluster: Basic Information, Attribute: Location, Privilege: view */ \
     /* Cluster: OTA Software Update Requestor, Attribute: DefaultOTAProviders, Privilege: view */ \
+    /* Cluster: General Commissioning, Attribute: Breadcrumb, Privilege: view */ \
     0x00000000, /* Cluster: Network Commissioning, Attribute: MaxNetworks, Privilege: administer */ \
     0x00000001, /* Cluster: Network Commissioning, Attribute: Networks, Privilege: administer */ \
     /* Cluster: Network Commissioning, Attribute: InterfaceEnabled, Privilege: view */ \
@@ -59,9 +69,14 @@
 
 // Parallel array data (cluster, attribute, *privilege*) for read attribute
 #define GENERATED_ACCESS_READ_ATTRIBUTE__PRIVILEGE { \
+    /* Cluster: On/Off, Attribute: StartUpOnOff, Privilege: view */ \
+    /* Cluster: Level Control, Attribute: StartUpCurrentLevel, Privilege: view */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Access Control, Attribute: ACL, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Access Control, Attribute: Extension, Privilege: administer */ \
+    /* Cluster: Basic Information, Attribute: NodeLabel, Privilege: view */ \
+    /* Cluster: Basic Information, Attribute: Location, Privilege: view */ \
     /* Cluster: OTA Software Update Requestor, Attribute: DefaultOTAProviders, Privilege: view */ \
+    /* Cluster: General Commissioning, Attribute: Breadcrumb, Privilege: view */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Network Commissioning, Attribute: MaxNetworks, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Network Commissioning, Attribute: Networks, Privilege: administer */ \
     /* Cluster: Network Commissioning, Attribute: InterfaceEnabled, Privilege: view */ \
@@ -126,7 +141,6 @@
     0x00000004, /* Cluster: Groups, Command: RemoveGroup, Privilege: manage */ \
     0x00000004, /* Cluster: Groups, Command: RemoveAllGroups, Privilege: manage */ \
     0x00000004, /* Cluster: Groups, Command: AddGroupIfIdentifying, Privilege: manage */ \
-    0x0000002A, /* Cluster: OTA Software Update Requestor, Command: AnnounceOTAProvider, Privilege: administer */ \
     0x00000030, /* Cluster: General Commissioning, Command: ArmFailSafe, Privilege: administer */ \
     0x00000030, /* Cluster: General Commissioning, Command: SetRegulatoryConfig, Privilege: administer */ \
     0x00000030, /* Cluster: General Commissioning, Command: CommissioningComplete, Privilege: administer */ \
@@ -149,8 +163,6 @@
     0x0000003E, /* Cluster: Operational Credentials, Command: UpdateFabricLabel, Privilege: administer */ \
     0x0000003E, /* Cluster: Operational Credentials, Command: RemoveFabric, Privilege: administer */ \
     0x0000003E, /* Cluster: Operational Credentials, Command: AddTrustedRootCertificate, Privilege: administer */ \
-    0x0000003E, /* Cluster: Operational Credentials, Command: SetVIDVerificationStatement, Privilege: administer */ \
-    0x0000003E, /* Cluster: Operational Credentials, Command: SignVIDVerificationRequest, Privilege: administer */ \
     0x0000003F, /* Cluster: Group Key Management, Command: KeySetWrite, Privilege: administer */ \
     0x0000003F, /* Cluster: Group Key Management, Command: KeySetRead, Privilege: administer */ \
     0x0000003F, /* Cluster: Group Key Management, Command: KeySetRemove, Privilege: administer */ \
@@ -165,7 +177,6 @@
     0x00000003, /* Cluster: Groups, Command: RemoveGroup, Privilege: manage */ \
     0x00000004, /* Cluster: Groups, Command: RemoveAllGroups, Privilege: manage */ \
     0x00000005, /* Cluster: Groups, Command: AddGroupIfIdentifying, Privilege: manage */ \
-    0x00000000, /* Cluster: OTA Software Update Requestor, Command: AnnounceOTAProvider, Privilege: administer */ \
     0x00000000, /* Cluster: General Commissioning, Command: ArmFailSafe, Privilege: administer */ \
     0x00000002, /* Cluster: General Commissioning, Command: SetRegulatoryConfig, Privilege: administer */ \
     0x00000004, /* Cluster: General Commissioning, Command: CommissioningComplete, Privilege: administer */ \
@@ -188,8 +199,6 @@
     0x00000009, /* Cluster: Operational Credentials, Command: UpdateFabricLabel, Privilege: administer */ \
     0x0000000A, /* Cluster: Operational Credentials, Command: RemoveFabric, Privilege: administer */ \
     0x0000000B, /* Cluster: Operational Credentials, Command: AddTrustedRootCertificate, Privilege: administer */ \
-    0x0000000C, /* Cluster: Operational Credentials, Command: SetVIDVerificationStatement, Privilege: administer */ \
-    0x0000000D, /* Cluster: Operational Credentials, Command: SignVIDVerificationRequest, Privilege: administer */ \
     0x00000000, /* Cluster: Group Key Management, Command: KeySetWrite, Privilege: administer */ \
     0x00000001, /* Cluster: Group Key Management, Command: KeySetRead, Privilege: administer */ \
     0x00000003, /* Cluster: Group Key Management, Command: KeySetRemove, Privilege: administer */ \
@@ -204,7 +213,6 @@
     chip::Access::Privilege::kManage, /* Cluster: Groups, Command: RemoveGroup, Privilege: manage */ \
     chip::Access::Privilege::kManage, /* Cluster: Groups, Command: RemoveAllGroups, Privilege: manage */ \
     chip::Access::Privilege::kManage, /* Cluster: Groups, Command: AddGroupIfIdentifying, Privilege: manage */ \
-    chip::Access::Privilege::kAdminister, /* Cluster: OTA Software Update Requestor, Command: AnnounceOTAProvider, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: General Commissioning, Command: ArmFailSafe, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: General Commissioning, Command: SetRegulatoryConfig, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: General Commissioning, Command: CommissioningComplete, Privilege: administer */ \
@@ -227,8 +235,6 @@
     chip::Access::Privilege::kAdminister, /* Cluster: Operational Credentials, Command: UpdateFabricLabel, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Operational Credentials, Command: RemoveFabric, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Operational Credentials, Command: AddTrustedRootCertificate, Privilege: administer */ \
-    chip::Access::Privilege::kAdminister, /* Cluster: Operational Credentials, Command: SetVIDVerificationStatement, Privilege: administer */ \
-    chip::Access::Privilege::kAdminister, /* Cluster: Operational Credentials, Command: SignVIDVerificationRequest, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Group Key Management, Command: KeySetWrite, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Group Key Management, Command: KeySetRead, Privilege: administer */ \
     chip::Access::Privilege::kAdminister, /* Cluster: Group Key Management, Command: KeySetRemove, Privilege: administer */ \

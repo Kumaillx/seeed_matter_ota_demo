@@ -8,38 +8,38 @@ cmake_minimum_required(VERSION 3.20.0)
 
 find_package(Zephyr HINTS $ENV{ZEPHYR_BASE})
 
-project(seeed_matter_ota_demo)
+project(xiao_nrf52840_light_bulb)
 
-# Enable GNU STD support.
+# Enable GNU STD support and initialize the Matter Data Model.
 include(${ZEPHYR_CONNECTEDHOMEIP_MODULE_DIR}/config/nrfconnect/app/enable-gnu-std.cmake)
+include(${ZEPHYR_CONNECTEDHOMEIP_MODULE_DIR}/src/app/chip_data_model.cmake)
 
 # NORDIC SDK APP START
 
 # Include all source files that are located in the Matter common directory.
 include(${ZEPHYR_NRF_MODULE_DIR}/samples/matter/common/cmake/source_common.cmake)
 
-# Include Data Model utils
-include(${ZEPHYR_NRF_MODULE_DIR}/samples/matter/common/cmake/data_model.cmake)
-
-include(${ZEPHYR_NRF_MODULE_DIR}/samples/matter/common/cmake/zap_helpers.cmake)
-ncs_get_zap_parent_dir(ZAP_PARENT_DIR)
-
 target_include_directories(app PRIVATE
-  src
-  ${ZAP_PARENT_DIR}
+    src
+    ${CONFIG_NCS_SAMPLE_MATTER_ZAP_FILES_PATH}
 )
 
-
+if(CONFIG_AWS_IOT_INTEGRATION)
+    add_subdirectory(src/aws_iot_integration)
+endif()
 
 target_sources(app PRIVATE
-  src/app_task.cpp
-  src/main.cpp
-  src/zcl_callbacks.cpp
-  ${CHIP_ROOT}/src/app/persistence/DeferredAttributePersistenceProvider.cpp
+    src/app_task.cpp
+    src/main.cpp
+    src/zcl_callbacks.cpp
+    src/user_led.cpp
+    src/led_strip.cpp
 )
 
-# FIXED: Explicitly pass target and generated JSON configuration file paths
-ncs_configure_data_model(TARGET matter-data-model CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/zap-generated/apps-configuration.json)
-target_link_libraries(app PRIVATE matter-data-model)
-
+chip_configure_data_model(app
+    INCLUDE_SERVER
+    BYPASS_IDL
+    GEN_DIR ${CONFIG_NCS_SAMPLE_MATTER_ZAP_FILES_PATH}/zap-generated
+    ZAP_FILE ${CMAKE_CURRENT_SOURCE_DIR}/${CONFIG_NCS_SAMPLE_MATTER_ZAP_FILES_PATH}/light_bulb.zap
+)
 # NORDIC SDK APP END
